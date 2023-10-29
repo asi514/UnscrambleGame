@@ -10,7 +10,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertNotEquals
 import com.example.unscramble.data.MAX_NO_OF_WORDS
-
+//Run test on the game and display a message in the log if they have passed or not.
 class GameViewModelTest {
     private val viewModel = GameViewModel()
 
@@ -37,6 +37,7 @@ class GameViewModelTest {
         assertTrue(currentGameUiState.isGuessedWordWrong)
     }
 
+    //Check if the first word is loaded correctly on initialization
     @Test
     fun gameViewModel_Initialization_FirstWordLoaded() {
         val gameUiState = viewModel.uiState.value
@@ -48,7 +49,7 @@ class GameViewModelTest {
         assertFalse(gameUiState.isGuessedWordWrong)
         assertFalse(gameUiState.isGameOver)
     }
-
+    //Check if the words are unscrambled and updated correctly
     @Test
     fun gameViewModel_AllWordsGuessed_UiState_UpdatedCorrectly() {
         var expectedScore = 0
@@ -66,6 +67,8 @@ class GameViewModelTest {
         assertTrue(currentGameUiState.isGameOver)
     }
 
+    //Check that the score is not updated but the word count is incremented if
+    //a word is skipped
     @Test
     fun gameViewModel_WordSkipped_ScoreUnchangedAndWordCountIncreased() {
         var currentGameUiState = viewModel.uiState.value

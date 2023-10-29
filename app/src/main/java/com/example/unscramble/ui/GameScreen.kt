@@ -61,6 +61,7 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
     val gameUiState by gameViewModel.uiState.collectAsState()
     val mediumPadding = dimensionResource(R.dimen.padding_medium)
 
+    //Layout parameters for the game screen
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -93,7 +94,8 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
             verticalArrangement = Arrangement.spacedBy(mediumPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            //Parameters for the "submit" button that calls checkUserGuess to see if the guess is
+            //correct
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { gameViewModel.checkUserGuess() }
@@ -104,6 +106,8 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
                 )
             }
 
+            //Create the button to skip a word so that the player can continue the game
+            //if they do not know the word
             OutlinedButton(
                 onClick = { gameViewModel.skipWord() },
                 modifier = Modifier.fillMaxWidth()
@@ -126,6 +130,7 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
     }
 }
 
+//Change the game status and check the player's score
 @Composable
 fun GameStatus(score: Int, modifier: Modifier = Modifier) {
     Card(
@@ -140,6 +145,7 @@ fun GameStatus(score: Int, modifier: Modifier = Modifier) {
     }
 }
 
+//Program the game's layout
 @Composable
 fun GameLayout(
     currentScrambledWord: String,
@@ -171,10 +177,12 @@ fun GameLayout(
                 style = typography.titleMedium,
                 color = colorScheme.onPrimary
             )
+            //Display the word to be unscrambled
             Text(
                 text = currentScrambledWord,
                 style = typography.displayMedium
             )
+            //Display the instructions
             Text(
                 text = stringResource(R.string.instructions),
                 textAlign = TextAlign.Center,
@@ -190,6 +198,8 @@ fun GameLayout(
                     unfocusedContainerColor = colorScheme.surface,
                     disabledContainerColor = colorScheme.surface,
                 ),
+                //Check the player's answer and display a message if it is wrong; otherwise,
+                //display the next scrambled word
                 onValueChange = onUserGuessChanged,
                 label = {
                     if (isGuessWrong) {
